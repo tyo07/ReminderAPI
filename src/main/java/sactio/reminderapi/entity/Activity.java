@@ -9,8 +9,8 @@ import javax.persistence.Table;
 
 @Entity
 @Data
-@Table(name = "ACTIVITY_NAME")
-public class ActivityName {
+@Table(name = "ACTIVITY")
+public class Activity {
 
     @Id
     @Column(name = "activity_id", nullable = false)
