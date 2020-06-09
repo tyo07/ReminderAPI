@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>sactio</groupId>
 	<artifactId>reminder-api</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>reminder-api</name>
 	<description>scheduler reminder for daily activities</description>
 
