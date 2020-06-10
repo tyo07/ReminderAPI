@@ -1,15 +1,5 @@
 version: '3.7'
 services:
-  mysql_db_container:
-    image: mysql:latest
-    command: --default-authentication-plugin=mysql_native_password
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-    ports:
-      - 3306:3306
-    volumes:
-      - /Users/sactio.swastioyono/git/Personal/Java/reminder-api/docker/data:/var/lib/mysql
-
   reminder-api:
     image: 'sactio1811/reminder-api:0.0.1'
     build:
@@ -18,11 +8,3 @@ services:
     ports:
       - 5000:5000
       - 8002:8002
-#    networks:
-#      bridge:
-#        ipv4_address: 172.20.0.13
-#networks:
-#  bridge:
-#    ipam:
-#      config:
-#        - subnet: 172.20.0.0/24
