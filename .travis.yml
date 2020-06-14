@@ -5,9 +5,9 @@ services:
 - docker
 jobs:
   include:
-  - stage: maven phase
+  - stage: maven phase UT IT package
     script:
-    - mvn clean package
+    - mvn clean verify package
   - stage: build docker image
     script:
     - set DOCKER_USERNAME sactio1811
@@ -27,7 +27,7 @@ jobs:
       bucket_name: elasticbeanstalk-ap-northeast-1-795608224453
       on:
         repo: tyo07/ReminderAPI
-        branch: feat/learn-travis-ci
+        branch: master
       skip_cleanup: 'true'
       edge: true
 

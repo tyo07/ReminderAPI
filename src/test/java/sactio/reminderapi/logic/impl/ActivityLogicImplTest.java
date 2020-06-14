@@ -8,13 +8,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import sactio.reminderapi.dto.ActivityDto;
+import sactio.reminderapi.dto.ActivityRequestDto;
 import sactio.reminderapi.entity.ActivityEntity;
+import sactio.reminderapi.logic.impl.ActivityLogicImpl;
 import sactio.reminderapi.repository.ActivityRepository;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.Collections;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.when;
 
 public class ActivityLogicImplTest {
     @Mock
@@ -29,22 +32,24 @@ public class ActivityLogicImplTest {
 
     @Test
     public void testGetListActivityId() throws Exception {
-        when(activityRepository.findByActivityId(anyString())).thenReturn(Arrays.<ActivityEntity>asList(new ActivityEntity()));
+        when(activityRepository.findByActivityId(anyInt())).thenReturn(Arrays.<ActivityEntity>asList(new ActivityEntity()));
 
-        List<ActivityEntity> result = activityLogicImpl.getListActivityId("activityId");
-        Assert.assertEquals(Arrays.<ActivityEntity>asList(new ActivityEntity()), result);
+        ActivityDto result = activityLogicImpl.findByActivityId(123);
+        ActivityDto expected = new ActivityDto();
+        expected.setActivityEntityList(Collections.<ActivityEntity>singletonList(new ActivityEntity()));
+        Assert.assertEquals(expected, result);
     }
 
     @Test
     @Ignore
     public void testFindAllActivities() throws Exception {
-        List<ActivityEntity> result = activityLogicImpl.findAllActivities();
-        Assert.assertEquals(Arrays.<ActivityEntity>asList(new ActivityEntity()), result);
+        ActivityDto result = activityLogicImpl.findAllActivities();
+        Assert.assertEquals(new ActivityDto(), result);
     }
 
     @Test
     public void testInsertActivities() throws Exception {
-        activityLogicImpl.insertActivities(new ActivityDto());
+        activityLogicImpl.insertActivities(new ActivityRequestDto());
     }
 }
 

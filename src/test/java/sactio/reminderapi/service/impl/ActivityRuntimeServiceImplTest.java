@@ -5,12 +5,10 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import sactio.reminderapi.dto.ActivityRuntimeDto;
 import sactio.reminderapi.logic.ActivityRuntimeLogic;
+import sactio.reminderapi.service.impl.ActivityRuntimeServiceImpl;
 
-import static org.mockito.Mockito.*;
-
-public class ActivityEntityRuntimeServiceImplTest {
+public class ActivityRuntimeServiceImplTest {
     @Mock
     ActivityRuntimeLogic activityRuntimeLogic;
     @InjectMocks
@@ -23,7 +21,7 @@ public class ActivityEntityRuntimeServiceImplTest {
 
     @Test
     public void testInsertActivityRuntime() throws Exception {
-        activityRuntimeServiceImpl.insertActivityRuntime(new ActivityRuntimeDto());
+//        activityRuntimeServiceImpl.insertActivityRuntime(new ActivityRuntimeDto());
     }
 }
 

@@ -3,31 +3,30 @@ package sactio.reminderapi.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sactio.reminderapi.dto.ActivityDto;
-import sactio.reminderapi.entity.ActivityEntity;
+import sactio.reminderapi.dto.ActivityRequestDto;
 import sactio.reminderapi.logic.ActivityLogic;
-
-import java.util.List;
+import sactio.reminderapi.service.ActivityService;
 
 @Service
-public class ActivityServiceImpl {
+public class ActivityServiceImpl implements ActivityService {
 
 
-    final ActivityLogic activityLogic;
+    private final ActivityLogic activityLogic;
 
     @Autowired
     public ActivityServiceImpl(ActivityLogic activityLogic) {
         this.activityLogic = activityLogic;
     }
 
-    public List<ActivityEntity> getListActivityId(String activityId) {
-        return activityLogic.getListActivityId(activityId);
+    public ActivityDto getActivityById(Integer activityId) {
+        return activityLogic.findByActivityId(activityId);
     }
 
-    public List<ActivityEntity> getAllActivities() {
+    public ActivityDto getAllActivities() {
         return activityLogic.findAllActivities();
     }
 
-    public void insertActivity(ActivityDto activityDto) {
+    public void insertActivity(ActivityRequestDto activityDto) {
         activityLogic.insertActivities(activityDto);
     }
 

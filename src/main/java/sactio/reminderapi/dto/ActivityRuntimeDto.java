@@ -3,12 +3,13 @@ package sactio.reminderapi.dto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import sactio.reminderapi.entity.ActivityRuntimeEntity;
+
+import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
 @ToString
 public class ActivityRuntimeDto {
-    private String activityId;
-    private String startTime;
-    private String endTime;
+    private List<ActivityRuntimeEntity> activityRuntimeEntityList;
 }
