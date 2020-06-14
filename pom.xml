@@ -17,6 +17,10 @@
     <properties>
         <java.version>1.8</java.version>
         <jacoco.reportPath>${project.build.directory}/jacoco.exec</jacoco.reportPath>
+        <excludes>
+            <exclude>**/dto/*.java</exclude>
+            <exclude>**/entity/*.java</exclude>
+        </excludes>
     </properties>
 
 
@@ -119,10 +123,7 @@
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
-                    <excludes>
-                        <exclude>**/dto/*.java</exclude>
-                        <exclude>**/entity/*.java</exclude>
-                    </excludes>
+
                 </configuration>
             </plugin>
             <plugin>
