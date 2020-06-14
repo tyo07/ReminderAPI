@@ -29,7 +29,7 @@ public class ActivityController {
     public ActivityResponseDto getActivity(@PathVariable String activity) {
         ActivityResponseDto activityResponseDto = new ActivityResponseDto();
         activityResponseDto.setResponseCode("200");
-        activityResponseDto.setActivityDetails(activityServiceImpl.getListActivityId(activity));
+        activityResponseDto.setActivityEntityDetails(activityServiceImpl.getListActivityId(activity));
         return activityResponseDto;
     }
 
@@ -39,7 +39,7 @@ public class ActivityController {
     public ActivityResponseDto getAllActivity() {
         ActivityResponseDto activityResponseDto = new ActivityResponseDto();
         activityResponseDto.setResponseCode("200");
-        activityResponseDto.setActivityDetails(activityServiceImpl.getAllActivities());
+        activityResponseDto.setActivityEntityDetails(activityServiceImpl.getAllActivities());
         return activityResponseDto;
     }
 

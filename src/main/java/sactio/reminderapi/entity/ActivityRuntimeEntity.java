@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Data
 @ToString
 @Table(name = "ACTIVITY_RUNTIME")
-public class ActivityRuntime {
+public class ActivityRuntimeEntity {
 
     @Id
     @Column(name = "activity_id", nullable = false)

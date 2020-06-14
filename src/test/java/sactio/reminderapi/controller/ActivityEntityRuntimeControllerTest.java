@@ -1,20 +1,23 @@
-package sactio.reminderapi.service.impl;
+package sactio.reminderapi.controller;
 
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import sactio.reminderapi.dto.ActivityResponseDto;
 import sactio.reminderapi.dto.ActivityRuntimeDto;
-import sactio.reminderapi.logic.ActivityRuntimeLogic;
+import sactio.reminderapi.service.ActivityRuntimeService;
 
 import static org.mockito.Mockito.*;
 
-public class ActivityRuntimeServiceImplTest {
+public class ActivityEntityRuntimeControllerTest {
     @Mock
-    ActivityRuntimeLogic activityRuntimeLogic;
+    ActivityRuntimeService activityRuntimeService;
     @InjectMocks
-    ActivityRuntimeServiceImpl activityRuntimeServiceImpl;
+    ActivityRuntimeController activityRuntimeController;
 
     @Before
     public void setUp() {
@@ -22,8 +25,10 @@ public class ActivityRuntimeServiceImplTest {
     }
 
     @Test
+    @Ignore
     public void testInsertActivityRuntime() throws Exception {
-        activityRuntimeServiceImpl.insertActivityRuntime(new ActivityRuntimeDto());
+        ActivityResponseDto result = activityRuntimeController.insertActivityRuntime(new ActivityRuntimeDto());
+        Assert.assertEquals(new ActivityResponseDto(), result);
     }
 }
 

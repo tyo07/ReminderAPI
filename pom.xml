@@ -17,10 +17,6 @@
     <properties>
         <java.version>1.8</java.version>
         <jacoco.reportPath>${project.build.directory}/jacoco.exec</jacoco.reportPath>
-        <excludes>
-            <exclude>**/dto/*.java</exclude>
-            <exclude>**/entity/*.java</exclude>
-        </excludes>
     </properties>
 
 
@@ -85,7 +81,15 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.6.201602180812</version>
+                <version>0.8.2</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/*Dto*.*</exclude>
+                        <exclude>**/*Entity*.*</exclude>
+                        <exclude>**/*Repository*.*</exclude>
+                        <exclude>**/*Application*.*</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>

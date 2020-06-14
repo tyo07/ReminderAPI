@@ -3,7 +3,7 @@ package sactio.reminderapi.dto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import sactio.reminderapi.entity.Activity;
+import sactio.reminderapi.entity.ActivityEntity;
 
 import java.util.List;
 
@@ -13,6 +13,6 @@ import java.util.List;
 public class ActivityResponseDto {
 
     private String responseCode;
-    private List<Activity> activityDetails;
+    private List<ActivityEntity> activityEntityDetails;
     private String message;
 }

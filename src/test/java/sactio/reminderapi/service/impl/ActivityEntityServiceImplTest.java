@@ -7,7 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import sactio.reminderapi.dto.ActivityDto;
-import sactio.reminderapi.entity.Activity;
+import sactio.reminderapi.entity.ActivityEntity;
 import sactio.reminderapi.logic.ActivityLogic;
 
 import java.util.Arrays;
@@ -15,7 +15,7 @@ import java.util.List;
 
 import static org.mockito.Mockito.*;
 
-public class ActivityServiceImplTest {
+public class ActivityEntityServiceImplTest {
     @Mock
     ActivityLogic activityLogic;
     @InjectMocks
@@ -28,18 +28,18 @@ public class ActivityServiceImplTest {
 
     @Test
     public void testGetListActivityId() throws Exception {
-        when(activityLogic.getListActivityId(anyString())).thenReturn(Arrays.<Activity>asList(new Activity()));
+        when(activityLogic.getListActivityId(anyString())).thenReturn(Arrays.<ActivityEntity>asList(new ActivityEntity()));
 
-        List<Activity> result = activityServiceImpl.getListActivityId("activityId");
-        Assert.assertEquals(Arrays.<Activity>asList(new Activity()), result);
+        List<ActivityEntity> result = activityServiceImpl.getListActivityId("activityId");
+        Assert.assertEquals(Arrays.<ActivityEntity>asList(new ActivityEntity()), result);
     }
 
     @Test
     public void testGetAllActivities() throws Exception {
-        when(activityLogic.findAllActivities()).thenReturn(Arrays.<Activity>asList(new Activity()));
+        when(activityLogic.findAllActivities()).thenReturn(Arrays.<ActivityEntity>asList(new ActivityEntity()));
 
-        List<Activity> result = activityServiceImpl.getAllActivities();
-        Assert.assertEquals(Arrays.<Activity>asList(new Activity()), result);
+        List<ActivityEntity> result = activityServiceImpl.getAllActivities();
+        Assert.assertEquals(Arrays.<ActivityEntity>asList(new ActivityEntity()), result);
     }
 
     @Test
