@@ -1,4 +1,4 @@
-[![Build Status](http://img.shields.io/travis/tyo07/ReminderAPI/master.svg?style=flat-square)](https:///travis-ci.com/tyo07/ReminderAPI)
+[![Build Status](https://travis-ci.com/tyo07/ReminderAPI.svg?branch=master)](https:///travis-ci.com/tyo07/ReminderAPI)
 [![Coverage Status](https://coveralls.io/repos/github/tyo07/ReminderAPI/badge.svg?branch=master)](https://coveralls.io/github/tyo07/ReminderAPI?branch=master)
 
 ## Why I create this API?
