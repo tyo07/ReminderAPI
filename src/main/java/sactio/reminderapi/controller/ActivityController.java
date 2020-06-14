@@ -4,45 +4,56 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import sactio.reminderapi.dto.ActivityDto;
 import sactio.reminderapi.dto.ActivityResponseDto;
-import sactio.reminderapi.entity.Activity;
-import sactio.reminderapi.service.ActivityService;
-
-import java.util.ArrayList;
-import java.util.List;
+import sactio.reminderapi.service.impl.ActivityServiceImpl;
 
 @RestController
 public class ActivityController {
 
-    @Autowired
-    ActivityService activityService;
+    final ActivityServiceImpl activityServiceImpl;
 
-    @GetMapping("/api/activity/{name}")
+    @Autowired
+    public ActivityController(final ActivityServiceImpl activityServiceImpl) {
+        this.activityServiceImpl = activityServiceImpl;
+    }
+
+    @GetMapping("/api/activity/get/{activity}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ActivityResponseDto getActivityDetails(@PathVariable String name) {
+    public ActivityResponseDto getActivity(@PathVariable String activity) {
         ActivityResponseDto activityResponseDto = new ActivityResponseDto();
         activityResponseDto.setResponseCode("200");
-        activityResponseDto.setActivityDetails(activityService.createActivityResponse(name));
+        activityResponseDto.setActivityDetails(activityServiceImpl.getListActivityId(activity));
         return activityResponseDto;
     }
 
-    @GetMapping("/api/activity")
+    @GetMapping("/api/activity/get")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public ActivityResponseDto getAllActivity() {
         ActivityResponseDto activityResponseDto = new ActivityResponseDto();
         activityResponseDto.setResponseCode("200");
-        Activity activity = new Activity();
-        activity.setActivityId("123");
-        activity.setActivityName("TEST");
-        List<Activity> activityList = new ArrayList<>();
-        activityList.add(activity);
-        activityResponseDto.setActivityDetails(activityList);
+        activityResponseDto.setActivityDetails(activityServiceImpl.getAllActivities());
         return activityResponseDto;
     }
+
+
+    @PostMapping("/api/activity/insert")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public ActivityResponseDto insertActivity(@RequestBody ActivityDto activityDto) {
+        activityServiceImpl.insertActivity(activityDto);
+        ActivityResponseDto activityResponseDto = new ActivityResponseDto();
+        activityResponseDto.setResponseCode("200");
+        activityResponseDto.setMessage(activityDto + " successfully inserted.");
+        return activityResponseDto;
+    }
+
+
 }

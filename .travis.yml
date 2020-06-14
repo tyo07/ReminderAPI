@@ -1,10 +1,36 @@
 language: java
 jdk:
-  - openjdk8
-
+- openjdk8
 services:
-  - docker
+- docker
+jobs:
+  include:
+  - stage: maven phase
+    script:
+    - mvn clean package
+  - stage: build docker image
+    script:
+    - set DOCKER_USERNAME sactio1811
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker-compose build
+    - docker push $DOCKER_USERNAME/reminder-api
+  - stage: deploy
+    deploy:
+      provider: elasticbeanstalk
+      access_key_id: AKIAJWNJN4XOHPNXW3BQ
+      secret_access_key:
+        secure: jvJQvRAdDGz7baw40ZF815CNCNPmfjOQbdWtpNiVJTk+OGcnsOKPqqSKzUGCLkAmoCpREA84IV865llR4ej0KCPi3Isd76OJBrqb5X4/ail0Dmy/JWAf5fsUTEauwdaYohw/se45sGj6zvnPcT/0vFFQzAVi/wnXlFM3ak9rser5p/Ns1aEDDj+1Ha2eoBr5DMdNRrck96v8Yfv+BZ8pV2f67vinlrjPf7vv0bh7edr1+b9FcDh5jNFKebh5tJRNFGlp33IUvau9gCdKS+t6yutxEP9AFqmtKP6R8lKE2WSNLVx2KBFv34EhSUHoaATfOukarl4qaMRuqxT7WDB7pULoS0ObD//O5ivZXVVaR0fpUEqictazUw5Jt5gY31ReP3eLEMzAA/fGSYDMMXv49VzMPGcx9Ijo4DsVVAkwRyuo85/w2zL5tR9c6HQAWfTsFnxOrJzd1SkZYf7cybG3kz1ZnBKb3jAPw4C+l7C4HmZ3GHknjRomm/DKaPlfLvUJ9kDMEbvfh34bnWcnqfp5wyYfIsAu5wgo4XZw6YFhsNAMr0zD+yhJSrScDuE0zaC+its3O88yxCxfEGmFOc3cpkwOMGlQ7xmQcrRZz7VJET7CI6e5Ay5LyrtjmI0epza3Z3CQ30hAGS0w/z5NiYHt61kpJm7IWJlAo61qB6P5jeg=
+      region: ap-northeast-1
+      app: Activity API
+      env: ActivityApi-env
+      zip_file: target/reminder-api-0.0.1.jar
+      bucket_name: elasticbeanstalk-ap-northeast-1-795608224453
+      on:
+        repo: tyo07/ReminderAPI
+        branch: feat/learn-travis-ci
+      skip_cleanup: 'true'
+      edge: true
+env:
+  global:
+    secure: k00EXqHkKQCxLVnIXv53BtWKQCLh7IfzhvDzuG7jWBB5cnfgs5wQZ+RjBfcnBMiS0p6Fd8Y1X18aDuJbGARPiIhxC93B0LMFvB4gjuXn5fafrBrk4df/4GAQhyIxhIDS5w+ErOOXqWshFghhUiH1BgaC5q1agAyDlJZTwKYal/yCdMSE9QoMTAUv4cgQUVFY1h+fpX+cLSebv13VYODlW79MvFoyxljfMPOVqaXOSQmmX9JkdfSExuaEaWPNu38+nMCqSwVlvCY34/FNIiQOeqQzN1KGtmGlBCxoFlORw8OAwIBXlT4Ox2P1J5Ry1/F+YZyUJeGXksqeIzHnMmk4HeQ1aHCUpGr6E1q+YUbuF8M5RpxxMEMdp66WJR306X9zIG4YurWeessn1kKJBVyqv97MjNlHExoutkCpfTH3znKK5Vitypho6ozmbtjjfTeyrtBLIsKuP64TD+PanJ84KcK2Q6mLGpqbTTJ2entDITBu9vZBVMjpSP3zXw8ExRIq0WYQxHsyBGsH2aVtBHbOhoHFGR5t9NJ79GsY6uOkbxSX6R8jiHltGS4T7Y4079G12CcXxNovLhwtQRSNDr7t3zgXTCv0wAbTNlMII4zvgFjhVOP7Sh405ZfHrcWXuuAOuX0VouGA2KuMcD+iis+EBkJK1X2e8Uwj7Nw0VPA01h4=
 
-before_install:
-  - docker build -t sactio1811/reminder-api .
-  - docker run -d -p 127.0.0.1:5000:5000

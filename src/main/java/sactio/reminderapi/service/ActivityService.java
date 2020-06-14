@@ -1,19 +1,16 @@
 package sactio.reminderapi.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import sactio.reminderapi.dto.ActivityDto;
 import sactio.reminderapi.entity.Activity;
-import sactio.reminderapi.logic.ActivityLogic;
 
 import java.util.List;
 
-@Service
-public class ActivityService {
+public interface ActivityService {
 
-    @Autowired
-    ActivityLogic activityLogic;
+    public List<Activity> getListActivityId(String activityId);
 
-    public List<Activity> createActivityResponse(String activityId){
-        return activityLogic.getListActivityId(activityId);
-    }
+    public List<Activity> getAllActivities();
+
+    public void insertActivity(ActivityDto activityDto);
+
 }

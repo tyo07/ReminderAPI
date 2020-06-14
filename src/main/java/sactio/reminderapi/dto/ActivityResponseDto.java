@@ -14,4 +14,5 @@ public class ActivityResponseDto {
 
     private String responseCode;
     private List<Activity> activityDetails;
+    private String message;
 }
