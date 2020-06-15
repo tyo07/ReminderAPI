@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.com/tyo07/ReminderAPI.svg?branch=master)](https:///travis-ci.com/tyo07/ReminderAPI)
-[![Coverage Status](https://coveralls.io/repos/github/tyo07/ReminderAPI/badge.svg?branch=master)](https://coveralls.io/github/tyo07/ReminderAPI?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/tyo07/ReminderAPI/badge.svg?branch=master&service=github)](https://coveralls.io/github/tyo07/ReminderAPI?branch=master)
 
 ## Why I create this API?
 - I need to create my own API for whatever purpose it is..but I don't have any idea at the moment. So I create an API that would remind me certain activities during the day.
