@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Data
-@Table(name = "ACTIVITY_RUNTIME")
+@Table(name = "activity_runtime")
 public class ActivityRuntimeEntity {
 
     @Id

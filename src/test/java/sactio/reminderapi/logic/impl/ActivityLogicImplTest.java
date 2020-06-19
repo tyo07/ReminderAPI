@@ -10,7 +10,6 @@ import org.mockito.MockitoAnnotations;
 import sactio.reminderapi.dto.ActivityDto;
 import sactio.reminderapi.dto.ActivityRequestDto;
 import sactio.reminderapi.entity.ActivityEntity;
-import sactio.reminderapi.logic.impl.ActivityLogicImpl;
 import sactio.reminderapi.repository.ActivityRepository;
 
 import java.util.Arrays;
@@ -36,7 +35,7 @@ public class ActivityLogicImplTest {
 
         ActivityDto result = activityLogicImpl.findByActivityId(123);
         ActivityDto expected = new ActivityDto();
-        expected.setActivityEntityList(Collections.<ActivityEntity>singletonList(new ActivityEntity()));
+        expected.setResult(Collections.<ActivityEntity>singletonList(new ActivityEntity()));
         Assert.assertEquals(expected, result);
     }
 
