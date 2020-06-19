@@ -16,6 +16,7 @@ public class ActivityEntity {
 
     @Id
     @Column(name = "activity_id", nullable = false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer activityId;
 
     @Column(name = "activity_name", nullable = false)
