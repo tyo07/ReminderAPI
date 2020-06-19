@@ -10,13 +10,12 @@ import javax.persistence.Table;
 
 @Entity
 @Data
-@ToString
 @Table(name = "ACTIVITY_RUNTIME")
 public class ActivityRuntimeEntity {
 
     @Id
     @Column(name = "activity_id", nullable = false)
-    private String activityId;
+    private Integer activityId;
     @Column(name = "start_time", nullable = false)
     private String startTime;
     @Column(name = "end_time", nullable = false)

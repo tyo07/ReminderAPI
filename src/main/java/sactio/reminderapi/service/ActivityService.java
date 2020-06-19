@@ -1,16 +1,14 @@
 package sactio.reminderapi.service;
 
 import sactio.reminderapi.dto.ActivityDto;
-import sactio.reminderapi.entity.ActivityEntity;
-
-import java.util.List;
+import sactio.reminderapi.dto.ActivityRequestDto;
 
 public interface ActivityService {
 
-    public List<ActivityEntity> getListActivityId(String activityId);
+    public ActivityDto getActivityById(Integer activityId);
 
-    public List<ActivityEntity> getAllActivities();
+    public ActivityDto getAllActivities();
 
-    public void insertActivity(ActivityDto activityDto);
+    public void insertActivity(ActivityRequestDto activityDto);
 
 }

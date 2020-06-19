@@ -2,16 +2,14 @@ package sactio.reminderapi.controller;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import sactio.reminderapi.dto.ActivityResponseDto;
 import sactio.reminderapi.dto.ActivityRuntimeDto;
+import sactio.reminderapi.dto.ActivityRuntimeRequestDto;
 import sactio.reminderapi.service.ActivityRuntimeService;
-
-import static org.mockito.Mockito.*;
 
 public class ActivityRuntimeControllerTest {
     @Mock
@@ -25,10 +23,12 @@ public class ActivityRuntimeControllerTest {
     }
 
     @Test
-    @Ignore
     public void testInsertActivityRuntime() throws Exception {
-        ActivityResponseDto result = activityRuntimeController.insertActivityRuntime(new ActivityRuntimeDto());
-        Assert.assertEquals(new ActivityResponseDto(), result);
+        ActivityResponseDto<ActivityRuntimeDto> result = activityRuntimeController.insertActivityRuntime(new ActivityRuntimeRequestDto());
+        ActivityResponseDto<ActivityRuntimeDto> expected = new ActivityResponseDto<>();
+        expected.setMessage(new ActivityRuntimeRequestDto() + " successfully inserted.");
+        expected.setResponseCode(200);
+        Assert.assertEquals(expected, result);
     }
 }
 

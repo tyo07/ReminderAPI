@@ -1,14 +1,12 @@
 package sactio.reminderapi.logic;
 
 import sactio.reminderapi.dto.ActivityDto;
-import sactio.reminderapi.entity.ActivityEntity;
-
-import java.util.List;
+import sactio.reminderapi.dto.ActivityRequestDto;
 
 public interface ActivityLogic {
-    List<ActivityEntity> getListActivityId(String activityId);
+    ActivityDto findByActivityId(Integer activityId);
 
-    List<ActivityEntity> findAllActivities();
+    ActivityDto findAllActivities();
 
-    void insertActivities(ActivityDto activityDto);
+    void insertActivities(ActivityRequestDto activityDto);
 }

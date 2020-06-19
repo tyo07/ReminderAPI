@@ -2,6 +2,7 @@ package sactio.reminderapi.logic.impl;
 
 import org.springframework.stereotype.Component;
 import sactio.reminderapi.dto.ActivityDto;
+import sactio.reminderapi.dto.ActivityRequestDto;
 import sactio.reminderapi.entity.ActivityEntity;
 import sactio.reminderapi.logic.ActivityLogic;
 import sactio.reminderapi.repository.ActivityRepository;
@@ -18,15 +19,20 @@ public class ActivityLogicImpl implements ActivityLogic {
         this.activityRepository = activityRepository;
     }
 
-    public List<ActivityEntity> getListActivityId(String activityId) {
-        return activityRepository.findByActivityId(activityId);
+    public ActivityDto findByActivityId(Integer activityId) {
+        ActivityDto activityDto = new ActivityDto();
+        activityDto.setActivityEntityList(activityRepository.findByActivityId(activityId));
+        return activityDto;
     }
 
-    public List<ActivityEntity> findAllActivities() {
-        return activityRepository.findAll();
+    public ActivityDto findAllActivities() {
+        List<ActivityEntity> activityEntityList = activityRepository.findAll();
+        ActivityDto activityDto = new ActivityDto();
+        activityDto.setActivityEntityList(activityEntityList);
+        return activityDto;
     }
 
-    public void insertActivities(ActivityDto activityDto) {
+    public void insertActivities(ActivityRequestDto activityDto) {
         ActivityEntity activityEntity = new ActivityEntity();
         activityEntity.setActivityId(activityDto.getActivityId());
         activityEntity.setActivityName(activityDto.getActivityName());

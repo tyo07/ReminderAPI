@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import sactio.reminderapi.dto.ActivityDto;
+import sactio.reminderapi.dto.ActivityRequestDto;
 import sactio.reminderapi.dto.ActivityResponseDto;
 import sactio.reminderapi.service.impl.ActivityServiceImpl;
 
@@ -26,20 +27,22 @@ public class ActivityController {
     @GetMapping("/api/activity/get/{activity}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ActivityResponseDto getActivity(@PathVariable String activity) {
-        ActivityResponseDto activityResponseDto = new ActivityResponseDto();
-        activityResponseDto.setResponseCode("200");
-        activityResponseDto.setActivityEntityDetails(activityServiceImpl.getListActivityId(activity));
+    public ActivityResponseDto<ActivityDto> getActivity(@PathVariable Integer activity) {
+        ActivityResponseDto<ActivityDto> activityResponseDto = new ActivityResponseDto<>();
+        activityResponseDto.setResponseCode(200);
+        activityResponseDto.setMessage("Success");
+        activityResponseDto.setData(activityServiceImpl.getActivityById(activity));
         return activityResponseDto;
     }
 
     @GetMapping("/api/activity/get")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ActivityResponseDto getAllActivity() {
-        ActivityResponseDto activityResponseDto = new ActivityResponseDto();
-        activityResponseDto.setResponseCode("200");
-        activityResponseDto.setActivityEntityDetails(activityServiceImpl.getAllActivities());
+    public ActivityResponseDto<ActivityDto> getAllActivity() {
+        ActivityResponseDto<ActivityDto> activityResponseDto = new ActivityResponseDto<>();
+        activityResponseDto.setResponseCode(200);
+        activityResponseDto.setMessage("Success");
+        activityResponseDto.setData(activityServiceImpl.getAllActivities());
         return activityResponseDto;
     }
 
@@ -47,11 +50,12 @@ public class ActivityController {
     @PostMapping("/api/activity/insert")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ActivityResponseDto insertActivity(@RequestBody ActivityDto activityDto) {
-        activityServiceImpl.insertActivity(activityDto);
-        ActivityResponseDto activityResponseDto = new ActivityResponseDto();
-        activityResponseDto.setResponseCode("200");
-        activityResponseDto.setMessage(activityDto + " successfully inserted.");
+    public ActivityResponseDto<ActivityDto> insertActivity(@RequestBody ActivityRequestDto activityRequestDto) {
+        activityServiceImpl.insertActivity(activityRequestDto);
+        ActivityResponseDto<ActivityDto> activityResponseDto = new ActivityResponseDto<>();
+        activityResponseDto.setResponseCode(200);
+        activityResponseDto.setMessage(activityRequestDto + " successfully inserted.");
+        activityResponseDto.setData(null);
         return activityResponseDto;
     }
 

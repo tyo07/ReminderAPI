@@ -11,13 +11,13 @@ import javax.persistence.Table;
 
 @Entity
 @Data
-@Table(name = "ACTIVITY")
+@Table(name = "activity")
 public class ActivityEntity {
 
     @Id
     @Column(name = "activity_id", nullable = false)
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long activityId;
+    private Integer activityId;
+
     @Column(name = "activity_name", nullable = false)
     private String activityName;
 }
