@@ -4,8 +4,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import javax.persistence.Column;
-
 @Data
 @EqualsAndHashCode(callSuper = false)
 @ToString

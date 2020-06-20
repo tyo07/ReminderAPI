@@ -11,5 +11,5 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 @ToString
 public class ActivityDto {
-    private List<ActivityEntity> result;
+    private List<ActivityEntity> activityEntityList;
 }

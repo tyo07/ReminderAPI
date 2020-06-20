@@ -1,17 +1,20 @@
 package sactio.reminderapi.logic.impl;
 
 import org.springframework.stereotype.Component;
+import sactio.reminderapi.dto.ActivityDto;
 import sactio.reminderapi.dto.ActivityRuntimeDto;
 import sactio.reminderapi.dto.ActivityRuntimeRequestDto;
 import sactio.reminderapi.entity.ActivityRuntimeEntity;
 import sactio.reminderapi.logic.ActivityRuntimeLogic;
 import sactio.reminderapi.repository.ActivityRuntimeRepository;
 
+import java.util.List;
+
 @Component
 
 public class ActivityRuntimeLogicImpl implements ActivityRuntimeLogic {
 
-    final ActivityRuntimeRepository activityRuntimeRepository;
+    private final ActivityRuntimeRepository activityRuntimeRepository;
 
     public ActivityRuntimeLogicImpl(final ActivityRuntimeRepository activityRuntimeRepository) {
         this.activityRuntimeRepository = activityRuntimeRepository;
@@ -27,12 +30,17 @@ public class ActivityRuntimeLogicImpl implements ActivityRuntimeLogic {
 
     @Override
     public ActivityRuntimeDto getAllActivityRuntime() {
-        return null;
+        List<ActivityRuntimeEntity> activityRuntimeEntityList = activityRuntimeRepository.findAll();
+        ActivityRuntimeDto activityRuntimeDto = new ActivityRuntimeDto();
+        activityRuntimeDto.setActivityRuntimeEntityList(activityRuntimeEntityList);
+        return activityRuntimeDto;
     }
 
     @Override
-    public ActivityRuntimeDto getActivityRuntime(final String activityRuntime) {
-        return null;
+    public ActivityRuntimeDto findByActivityId(final Integer activityRuntime) {
+        ActivityRuntimeDto activityRuntimeDto = new ActivityRuntimeDto();
+        activityRuntimeDto.setActivityRuntimeEntityList(activityRuntimeRepository.findByActivityId(activityRuntime));
+        return activityRuntimeDto;
     }
 
 

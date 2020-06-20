@@ -2,13 +2,11 @@ package sactio.reminderapi.service.impl;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import sactio.reminderapi.dto.ActivityDto;
-import sactio.reminderapi.dto.ActivityRequestDto;
 import sactio.reminderapi.entity.ActivityEntity;
 import sactio.reminderapi.logic.ActivityLogic;
 
@@ -34,7 +32,7 @@ public class ActivityServiceImplTest {
 
         ActivityDto result = activityServiceImpl.getActivityById(123);
         ActivityDto expected = new ActivityDto();
-        expected.setResult(Collections.singletonList(new ActivityEntity()));
+        expected.setActivityEntityList(Collections.singletonList(new ActivityEntity()));
         Assert.assertEquals(new ActivityDto(), result);
     }
 
@@ -44,7 +42,7 @@ public class ActivityServiceImplTest {
 
         ActivityDto result = activityServiceImpl.getAllActivities();
         ActivityDto expected = new ActivityDto();
-        expected.setResult(Collections.singletonList(new ActivityEntity()));
+        expected.setActivityEntityList(Collections.singletonList(new ActivityEntity()));
         Assert.assertEquals(new ActivityDto(), result);
     }
 

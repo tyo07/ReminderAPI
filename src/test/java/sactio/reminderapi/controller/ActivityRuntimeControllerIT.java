@@ -20,10 +20,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.containers.MySQLContainer;
 import sactio.reminderapi.ActivityApiApplication;
 import sactio.reminderapi.config.MySQLBaseContainer;
-import sactio.reminderapi.dto.ActivityDto;
 import sactio.reminderapi.dto.ActivityResponseDto;
-import sactio.reminderapi.entity.ActivityEntity;
-import sactio.reminderapi.repository.ActivityRepository;
+import sactio.reminderapi.dto.ActivityRuntimeDto;
+import sactio.reminderapi.entity.ActivityRuntimeEntity;
+import sactio.reminderapi.repository.ActivityRuntimeRepository;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
@@ -39,13 +39,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(initializers = MySQLBaseContainer.Initializer.class,
         classes = ActivityApiApplication.class)
 @AutoConfigureMockMvc
-public class ActivityControllerIT {
+public class ActivityRuntimeControllerIT {
 
 
     @ClassRule
     public static MySQLContainer mysql = MySQLBaseContainer.getInstance();
     @Autowired
-    private ActivityRepository activityRepository;
+    private ActivityRuntimeRepository activityRuntimeRepository;
 
     @LocalServerPort
     private int port;
@@ -57,81 +57,79 @@ public class ActivityControllerIT {
     private MockMvc mvc;
 
 
-    private String drinkCoffeeActivity = "drinkCoffee";
-    private String eatTakoyakiActivity = "eatTakoyaki";
-
-
     @Before
     public void setUp() {
-        createTestActivity(1, drinkCoffeeActivity);
-        createTestActivity(2, eatTakoyakiActivity);
+        createTestActivityRuntime(1, "1200", "1300");
+        createTestActivityRuntime(2, "1310", "1400");
     }
 
     @After
     public void resetDb() {
-        activityRepository.deleteAll();
+        activityRuntimeRepository.deleteAll();
     }
 
 
     @Test
     public void testGetAllActivities_return200_and_verifyResult() {
-        ActivityResponseDto<ActivityDto> activityResponseDto = this.restTemplate.exchange("http://localhost:" + port + "/api/activity/get", HttpMethod.GET, null, new ParameterizedTypeReference<ActivityResponseDto<ActivityDto>>() {
+        ActivityResponseDto<ActivityRuntimeDto> activityResponseDto = this.restTemplate.exchange("http://localhost:" + port + "/api/activityruntime/get", HttpMethod.GET, null, new ParameterizedTypeReference<ActivityResponseDto<ActivityRuntimeDto>>() {
         }).getBody();
         assertThat(activityResponseDto.getResponseCode(), is(200));
-        assertThat(activityResponseDto.getData().getActivityEntityList().get(0).getActivityName(), is(drinkCoffeeActivity));
-        assertThat(activityResponseDto.getData().getActivityEntityList().get(1).getActivityName(), is(eatTakoyakiActivity));
+        assertThat(activityResponseDto.getData().getActivityRuntimeEntityList().get(0).getActivityId(), is(1));
+        assertThat(activityResponseDto.getData().getActivityRuntimeEntityList().get(1).getActivityId(), is(2));
 
     }
 
     @Test
     public void givenActivity_shouldReturn_200_and_containActivity() throws Exception {
 
-        mvc.perform(get("/api/activity/get").contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/api/activityruntime/get").contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(content().string(containsString(eatTakoyakiActivity)))
-                .andExpect(content().string(containsString(drinkCoffeeActivity)));
+                .andExpect(content().string(containsString("1200")))
+                .andExpect(content().string(containsString("1300")))
+                .andExpect(content().string(containsString("1310")))
+                .andExpect(content().string(containsString("1400")));
 
     }
 
     @Test
     public void givenActivity_shouldReturn_200_and_jsonShouldMatch() throws Exception {
 
-        mvc.perform(get("/api/activity/get").contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/api/activityruntime/get").contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("{'responseCode':200,'message':'Success','data':{'activityEntityList':[{'activityId':1,'activityName':'drinkCoffee'},{'activityId':2,'activityName':'eatTakoyaki'}]}})"));
+                .andExpect(content().json("{'responseCode':200,'message':'Success','data':{'activityRuntimeEntityList':[{'activityId':1,'startTime':'1200','endTime':'1300'},{'activityId':2,'startTime':'1310','endTime':'1400'}]}})"));
 
     }
 
     @Test
     public void givenActivity_whenGetActivity_shouldReturn() throws Exception {
 
-        mvc.perform(get("/api/activity/get/1").contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/api/activityruntime/get/1").contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("{'responseCode':200,'message':'Success','data':{'activityEntityList':[{'activityId':1,'activityName':'drinkCoffee'}]}})"));
+                .andExpect(content().json("{'responseCode':200,'message':'Success','data':{'activityRuntimeEntityList':[{'activityId':1,'startTime':'1200','endTime':'1300'}]}})"));
 
 
-        mvc.perform(get("/api/activity/get/2").contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/api/activityruntime/get/2").contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("{'responseCode':200,'message':'Success','data':{'activityEntityList':[{'activityId':2,'activityName':'eatTakoyaki'}]}})"));
+                .andExpect(content().json("{'responseCode':200,'message':'Success','data':{'activityRuntimeEntityList':[{'activityId':2,'startTime':'1310','endTime':'1400'}]}})"));
 
     }
 
     @Test
     public void givenActivity_whenGetActivity_notExist_shouldReturnEmpty() throws Exception {
 
-        mvc.perform(get("/api/activity/get/3").contentType(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/api/activityruntime/get/3").contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("{'responseCode':200,'message':'Success','data':{'activityEntityList':[]}})"));
+                .andExpect(content().json("{'responseCode':200,'message':'Success','data':{'activityRuntimeEntityList':[]}})"));
 
     }
 
@@ -139,10 +137,11 @@ public class ActivityControllerIT {
     public void insertActivity_shouldReturnSuccess() throws Exception {
         String jsonString = new JSONObject()
                 .put("activityId", 1)
-                .put("activityName", "new activity")
+                .put("startTime", "1900")
+                .put("endTime", "2000")
                 .toString();
 
-        mvc.perform(post("/api/activity/insert")
+        mvc.perform(post("/api/activityruntime/insert")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("utf-8")
                 .content(jsonString))
@@ -151,11 +150,12 @@ public class ActivityControllerIT {
     }
 
 
-    private void createTestActivity(Integer activityId, String activityName) {
-        ActivityEntity activityEntity = new ActivityEntity();
-        activityEntity.setActivityId(activityId);
-        activityEntity.setActivityName(activityName);
-        activityRepository.saveAndFlush(activityEntity);
+    private void createTestActivityRuntime(Integer activityId, String startTime, String endTime) {
+        ActivityRuntimeEntity activityRuntimeEntity = new ActivityRuntimeEntity();
+        activityRuntimeEntity.setActivityId(activityId);
+        activityRuntimeEntity.setStartTime(startTime);
+        activityRuntimeEntity.setEndTime(endTime);
+        activityRuntimeRepository.saveAndFlush(activityRuntimeEntity);
     }
 }
 
