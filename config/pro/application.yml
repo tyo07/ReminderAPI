@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST:aa1lgfbrm2faszi.cpvp4rwekerx.ap-northeast-1.rds.amazonaws.com}:${MYSQL_PORT:3306}/${MYSQL_DB:activity_api}
+    username: ${MYSQL_USERNAME:admin}
+    password: ${MYSQL_PASSWORD:admin123}
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl

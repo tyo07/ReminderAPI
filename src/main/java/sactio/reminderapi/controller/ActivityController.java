@@ -2,6 +2,7 @@ package sactio.reminderapi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,14 +49,14 @@ public class ActivityController {
 
 
     @PostMapping("/api/activity/insert")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public ActivityResponseDto<ActivityDto> insertActivity(@RequestBody ActivityRequestDto activityRequestDto) {
+    public ActivityResponseDto<ActivityRequestDto> insertActivity(@RequestBody ActivityRequestDto activityRequestDto) {
         activityServiceImpl.insertActivity(activityRequestDto);
-        ActivityResponseDto<ActivityDto> activityResponseDto = new ActivityResponseDto<>();
-        activityResponseDto.setResponseCode(200);
-        activityResponseDto.setMessage(activityRequestDto + " successfully inserted.");
-        activityResponseDto.setData(null);
+        ActivityResponseDto<ActivityRequestDto> activityResponseDto = new ActivityResponseDto<>();
+        activityResponseDto.setResponseCode(201);
+        activityResponseDto.setMessage("Success");
+        activityResponseDto.setData(activityRequestDto);
         return activityResponseDto;
     }
 

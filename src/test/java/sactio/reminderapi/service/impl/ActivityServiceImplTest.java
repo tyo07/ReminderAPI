@@ -11,7 +11,6 @@ import sactio.reminderapi.dto.ActivityDto;
 import sactio.reminderapi.dto.ActivityRequestDto;
 import sactio.reminderapi.entity.ActivityEntity;
 import sactio.reminderapi.logic.ActivityLogic;
-import sactio.reminderapi.service.impl.ActivityServiceImpl;
 
 import java.util.Collections;
 
@@ -35,7 +34,7 @@ public class ActivityServiceImplTest {
 
         ActivityDto result = activityServiceImpl.getActivityById(123);
         ActivityDto expected = new ActivityDto();
-        expected.setActivityEntityList(Collections.singletonList(new ActivityEntity()));
+        expected.setResult(Collections.singletonList(new ActivityEntity()));
         Assert.assertEquals(new ActivityDto(), result);
     }
 
@@ -45,15 +44,10 @@ public class ActivityServiceImplTest {
 
         ActivityDto result = activityServiceImpl.getAllActivities();
         ActivityDto expected = new ActivityDto();
-        expected.setActivityEntityList(Collections.singletonList(new ActivityEntity()));
+        expected.setResult(Collections.singletonList(new ActivityEntity()));
         Assert.assertEquals(new ActivityDto(), result);
     }
 
-    @Test
-    @Ignore
-    public void testInsertActivity() throws Exception {
-        activityServiceImpl.insertActivity(new ActivityRequestDto());
-    }
 }
 
 //Generated with love by TestMe :) Please report issues and submit feature requests at: http://weirddev.com/forum#!/testme

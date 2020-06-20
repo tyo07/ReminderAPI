@@ -21,14 +21,14 @@ public class ActivityLogicImpl implements ActivityLogic {
 
     public ActivityDto findByActivityId(Integer activityId) {
         ActivityDto activityDto = new ActivityDto();
-        activityDto.setActivityEntityList(activityRepository.findByActivityId(activityId));
+        activityDto.setResult(activityRepository.findByActivityId(activityId));
         return activityDto;
     }
 
     public ActivityDto findAllActivities() {
         List<ActivityEntity> activityEntityList = activityRepository.findAll();
         ActivityDto activityDto = new ActivityDto();
-        activityDto.setActivityEntityList(activityEntityList);
+        activityDto.setResult(activityEntityList);
         return activityDto;
     }
 
