@@ -1,7 +1,6 @@
 package sactio.reminderapi.entity;
 
 import lombok.Data;
-import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -7,7 +7,7 @@ public interface ActivityRuntimeService {
 
     void insertActivityRuntime(ActivityRuntimeRequestDto activityRuntimeRequestDto);
 
-    ActivityRuntimeDto getActivityRuntime(String activityRuntime);
+    ActivityRuntimeDto getActivityRuntime(Integer activityRuntime);
 
     ActivityRuntimeDto getAllActivityRuntime();
 }

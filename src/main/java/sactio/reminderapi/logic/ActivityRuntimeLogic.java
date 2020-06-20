@@ -6,5 +6,5 @@ import sactio.reminderapi.dto.ActivityRuntimeRequestDto;
 public interface ActivityRuntimeLogic {
      void insertActivityRuntime(ActivityRuntimeRequestDto activityRuntimeRequestDto);
      ActivityRuntimeDto getAllActivityRuntime();
-     ActivityRuntimeDto getActivityRuntime(String activityRuntime);
+     ActivityRuntimeDto findByActivityId(Integer activityRuntime);
 }

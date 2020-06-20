@@ -23,7 +23,7 @@
 ``` 
 cd docker
 docker build -t sactio1811/mysql:reminder-api .
-docker run --name mysql-reminder-api -p 3306:3306-e MYSQL_DATABASE=activity_api -e MYSQL_USER=root -e MYSQL_ROOT_PASSWORD=pass -d mysql:reminder-api --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+docker run --name mysql-reminder-api -p 3306:3306 -e MYSQL_DATABASE=activity_api -e MYSQL_USER=root -e MYSQL_ROOT_PASSWORD=pass -d sactio1811/mysql:reminder-api --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
 if you stopped the container and want to start again
 docker start mysql-reminder-api

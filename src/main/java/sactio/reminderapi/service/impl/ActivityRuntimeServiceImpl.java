@@ -5,30 +5,31 @@ import org.springframework.stereotype.Service;
 import sactio.reminderapi.dto.ActivityRuntimeDto;
 import sactio.reminderapi.dto.ActivityRuntimeRequestDto;
 import sactio.reminderapi.logic.ActivityRuntimeLogic;
+import sactio.reminderapi.logic.impl.ActivityRuntimeLogicImpl;
 import sactio.reminderapi.service.ActivityRuntimeService;
 
 @Service
 public class ActivityRuntimeServiceImpl implements ActivityRuntimeService {
 
-    final ActivityRuntimeLogic activityRuntimeLogic;
+    private final ActivityRuntimeLogicImpl activityRuntimeLogicImpl;
 
     @Autowired
-    public ActivityRuntimeServiceImpl(ActivityRuntimeLogic activityRuntimeLogic){
-        this.activityRuntimeLogic = activityRuntimeLogic;
+    public ActivityRuntimeServiceImpl(ActivityRuntimeLogicImpl activityRuntimeLogicImpl){
+        this.activityRuntimeLogicImpl = activityRuntimeLogicImpl;
     }
 
     @Override
     public void insertActivityRuntime(ActivityRuntimeRequestDto activityRuntimeRequestDto) {
-        activityRuntimeLogic.insertActivityRuntime(activityRuntimeRequestDto);
+        activityRuntimeLogicImpl.insertActivityRuntime(activityRuntimeRequestDto);
     }
 
     @Override
     public ActivityRuntimeDto getAllActivityRuntime() {
-        return activityRuntimeLogic.getAllActivityRuntime();
+        return activityRuntimeLogicImpl.getAllActivityRuntime();
     }
 
     @Override
-    public ActivityRuntimeDto getActivityRuntime(final String activityRuntime) {
-        return activityRuntimeLogic.getActivityRuntime(activityRuntime);
+    public ActivityRuntimeDto getActivityRuntime(final Integer activityRuntime) {
+        return activityRuntimeLogicImpl.findByActivityId(activityRuntime);
     }
 }
