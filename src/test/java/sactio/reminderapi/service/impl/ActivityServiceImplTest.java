@@ -48,11 +48,6 @@ public class ActivityServiceImplTest {
         Assert.assertEquals(new ActivityDto(), result);
     }
 
-    @Test
-    @Ignore
-    public void testInsertActivity() throws Exception {
-        activityServiceImpl.insertActivity(new ActivityRequestDto());
-    }
 }
 
 //Generated with love by TestMe :) Please report issues and submit feature requests at: http://weirddev.com/forum#!/testme

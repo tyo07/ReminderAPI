@@ -49,13 +49,6 @@ public class ActivityControllerTest {
         expected.setData(new ActivityDto());
         Assert.assertEquals(expected, result);
     }
-
-    @Test
-    @Ignore
-    public void testInsertActivity() throws Exception {
-        ActivityResponseDto<ActivityDto> result = activityController.insertActivity(new ActivityRequestDto());
-        Assert.assertEquals(new ActivityResponseDto(), result);
-    }
 }
 
 //Generated with love by TestMe :) Please report issues and submit feature requests at: http://weirddev.com/forum#!/testme

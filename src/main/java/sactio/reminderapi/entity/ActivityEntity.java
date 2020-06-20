@@ -4,8 +4,6 @@ import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -16,7 +14,6 @@ public class ActivityEntity {
 
     @Id
     @Column(name = "activity_id", nullable = false)
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer activityId;
 
     @Column(name = "activity_name", nullable = false)

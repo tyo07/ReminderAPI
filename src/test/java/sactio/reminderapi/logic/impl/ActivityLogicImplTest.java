@@ -46,10 +46,7 @@ public class ActivityLogicImplTest {
         Assert.assertEquals(new ActivityDto(), result);
     }
 
-    @Test
-    public void testInsertActivities() throws Exception {
-        activityLogicImpl.insertActivities(new ActivityRequestDto());
-    }
+
 }
 
 //Generated with love by TestMe :) Please report issues and submit feature requests at: http://weirddev.com/forum#!/testme
