@@ -6,19 +6,17 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import sactio.reminderapi.constant.ActivityConstants;
-import sactio.reminderapi.dto.ActivityDto;
 import sactio.reminderapi.dto.ActivityResponseDto;
 import sactio.reminderapi.dto.ActivityRuntimeDto;
-import sactio.reminderapi.service.impl.ActivityRuntimeServiceImpl;
+import sactio.reminderapi.service.ActivityRuntimeService;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 public class ActivityRuntimeControllerTest {
     @Mock
-    ActivityRuntimeServiceImpl activityRuntimeServiceImpl;
+    ActivityRuntimeService activityRuntimeService;
     @InjectMocks
     ActivityRuntimeController activityRuntimeController;
 
@@ -29,7 +27,7 @@ public class ActivityRuntimeControllerTest {
 
     @Test
     public void testGetActivityRunTime() {
-        when(activityRuntimeServiceImpl.getActivityRuntime(anyInt())).thenReturn(new ActivityRuntimeDto());
+        when(activityRuntimeService.getActivityRuntime(anyInt())).thenReturn(new ActivityRuntimeDto());
         ActivityResponseDto<ActivityRuntimeDto> actual=  activityRuntimeController.getActivityRuntime(1);
         ActivityResponseDto<ActivityRuntimeDto> expected = new ActivityResponseDto<>();
         expected.setMessage(ActivityConstants.SUCCESS);
@@ -41,7 +39,7 @@ public class ActivityRuntimeControllerTest {
 
     @Test
     public void testGetAllActivityRunTime() {
-        when(activityRuntimeServiceImpl.getActivityRuntime(anyInt())).thenReturn(new ActivityRuntimeDto());
+        when(activityRuntimeService.getActivityRuntime(anyInt())).thenReturn(new ActivityRuntimeDto());
         ActivityResponseDto<ActivityRuntimeDto> actual=  activityRuntimeController.getActivityRuntime(1);
         ActivityResponseDto<ActivityRuntimeDto> expected = new ActivityResponseDto<>();
         expected.setMessage(ActivityConstants.SUCCESS);

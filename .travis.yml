@@ -5,37 +5,26 @@ services:
 - docker
 jobs:
   include:
-  - stage: maven phase UT IT package
-    script:
-    - mvn clean verify package -P pro
-  - stage: build docker image
+  - stage: deploy
+    deploy:
+      provider: elasticbeanstalk
+      access_key_id:
+        secure: tX5WT8Eg+XjlyHRllgJeVsH6ZGYS/1s/6cXjmw0Mxq1wN5FKt44gB1UTaigvT2mJYg+GKKdgXL5KrnyXubW4kBiRCMB5AqzIfM4z8RJPbcEI68V9+A3n+tTb6UrPAZzYj7g6q2VA9R2frRKMCIvGHzrp2TGv7a3mXO0YouEA1/E62HEamuIwuIu49tov8XmXK0iUiSGQ7MB9Cw1aM/r18Ny3kn9FLnEgKUYwWdpd4XLItbwvQhKUzfARB+LxhxjGy1ProIIag57xfqPHsBO9xYEFcpf3I5RKyGqwLY2XOSWrTPm+qaY27+hJwM5tN0GFfoMvFd555a3u8YTSbPUs+TvLfKYwO2/Kku/djJEsi0a382ga0rOxjoCiZ5zH2TESRLaU6aMpOiSGZvdU6V+jd7G/0GT3Ngs0xwulhKhAh9Fy6h92YxrobjlCnJxXbrVC4f/7x3XKwMOpHGr2hBb7CZPB2XqOdYXhjTyyuq7ptFn6O5MwxvDhVr2+XR9QXOLpo+JFnzwh9rmY0IX/86q/liWfvjm7E56jKx90z8oP1PU/uZ9P3QBoTgqoWJP2jAur2fXXRVohz5RNlDvh0aOVSMNNYfw5WzVP4uFacM5O5kbAU2Bd6nyOc2+xXf3whMuhnB7rAd5cMoWpFGjKKyVXrKb0s2UmFNuuzgu/hMH6hbo=
+      secret_access_key:
+        secure: sWWHkaxp25YbywQiQBhDHB9Ea6aGBuVzDXmdp/u1+WDxML2sSEWU953thtS3hnxufy5cxa5BL4IIdJKa6lXI82P/iqkdGi5xLB+c3tCIMIZ9KCwnygOflL9R746ME46xq7BnpkYn3oxHbebURufrs6n6HnWDAFJnADDY2T3T2u/HC/yZyNgVuigyP6cHSapIaL+OpEBox+QeuVJdklE81IIhw1OmnK9MbeSrN2nUmKoVxj40nA5DyHR4rhlFxyQxhADGNFkKMFUZAUTiLrDAyIs8jRSh9MAyDPIkiYsEZfZzZhq7nd9RMzKE8Cudtj1zrkoQ5tiJ54fzkVcA2Y+PbgtQ9zD3Z5Gf43gBA2qrYwDLiyqP8EFQqk7fL3TMWXMef29cU2dD7Z7TwBUCiKKkPVHRZVstR1WYtXEAUWsGVAwdBIjAubvoP/7tPgdKn3M7rT8CVoLNxntNEp8/sWvkX3kKywAlR+ha0huy6JcBTN8cq8XMsboT6S5dGRuplohQXRNoo2OBwNMF7T5K0eBeltHxDF0YVBaqZU+/MFwOD0/DZ+3Pd6G/MMi9Hld+PcDQopWYrwc5E091FwCOk5qoQVtle5W838tHtUJVDZqiHHn9qCDHlDbtrMde1+zGGmMe/agxuLq/OvD7/M2/aJ/eIzsOiKCWocHizACUXQ60TAw=
+      region: ap-northeast-1
+      app: ReminderAPI-DEV
+      env: ReminderapiDev-env
+      bucket_name: elasticbeanstalk-ap-northeast-1-065198887127
+      on:
+        repo: tyo07/ReminderAPI
+      skip_cleanup: 'true'
     script:
     - set DOCKER_USERNAME sactio1811
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker-compose build
     - docker push $DOCKER_USERNAME/reminder-api
-  - stage: deploy
-    deploy:
-      provider: elasticbeanstalk
-      access_key_id: AKIAJWNJN4XOHPNXW3BQ
-      secret_access_key:
-        secure: jvJQvRAdDGz7baw40ZF815CNCNPmfjOQbdWtpNiVJTk+OGcnsOKPqqSKzUGCLkAmoCpREA84IV865llR4ej0KCPi3Isd76OJBrqb5X4/ail0Dmy/JWAf5fsUTEauwdaYohw/se45sGj6zvnPcT/0vFFQzAVi/wnXlFM3ak9rser5p/Ns1aEDDj+1Ha2eoBr5DMdNRrck96v8Yfv+BZ8pV2f67vinlrjPf7vv0bh7edr1+b9FcDh5jNFKebh5tJRNFGlp33IUvau9gCdKS+t6yutxEP9AFqmtKP6R8lKE2WSNLVx2KBFv34EhSUHoaATfOukarl4qaMRuqxT7WDB7pULoS0ObD//O5ivZXVVaR0fpUEqictazUw5Jt5gY31ReP3eLEMzAA/fGSYDMMXv49VzMPGcx9Ijo4DsVVAkwRyuo85/w2zL5tR9c6HQAWfTsFnxOrJzd1SkZYf7cybG3kz1ZnBKb3jAPw4C+l7C4HmZ3GHknjRomm/DKaPlfLvUJ9kDMEbvfh34bnWcnqfp5wyYfIsAu5wgo4XZw6YFhsNAMr0zD+yhJSrScDuE0zaC+its3O88yxCxfEGmFOc3cpkwOMGlQ7xmQcrRZz7VJET7CI6e5Ay5LyrtjmI0epza3Z3CQ30hAGS0w/z5NiYHt61kpJm7IWJlAo61qB6P5jeg=
-      region: ap-northeast-1
-      app: Activity API
-      env: ActivityApi-env
-      zip_file: target/reminder-api-0.0.1.jar
-      bucket_name: elasticbeanstalk-ap-northeast-1-795608224453
-      on:
-        repo: tyo07/ReminderAPI
-        branch: master
-      skip_cleanup: 'true'
-      edge: true
-
-
+    - mvn clean verify jacoco:report coveralls:jacoco
 env:
   global:
     secure: k00EXqHkKQCxLVnIXv53BtWKQCLh7IfzhvDzuG7jWBB5cnfgs5wQZ+RjBfcnBMiS0p6Fd8Y1X18aDuJbGARPiIhxC93B0LMFvB4gjuXn5fafrBrk4df/4GAQhyIxhIDS5w+ErOOXqWshFghhUiH1BgaC5q1agAyDlJZTwKYal/yCdMSE9QoMTAUv4cgQUVFY1h+fpX+cLSebv13VYODlW79MvFoyxljfMPOVqaXOSQmmX9JkdfSExuaEaWPNu38+nMCqSwVlvCY34/FNIiQOeqQzN1KGtmGlBCxoFlORw8OAwIBXlT4Ox2P1J5Ry1/F+YZyUJeGXksqeIzHnMmk4HeQ1aHCUpGr6E1q+YUbuF8M5RpxxMEMdp66WJR306X9zIG4YurWeessn1kKJBVyqv97MjNlHExoutkCpfTH3znKK5Vitypho6ozmbtjjfTeyrtBLIsKuP64TD+PanJ84KcK2Q6mLGpqbTTJ2entDITBu9vZBVMjpSP3zXw8ExRIq0WYQxHsyBGsH2aVtBHbOhoHFGR5t9NJ79GsY6uOkbxSX6R8jiHltGS4T7Y4079G12CcXxNovLhwtQRSNDr7t3zgXTCv0wAbTNlMII4zvgFjhVOP7Sh405ZfHrcWXuuAOuX0VouGA2KuMcD+iis+EBkJK1X2e8Uwj7Nw0VPA01h4=
-
-
-after_success:
-  - mvn clean verify jacoco:report coveralls:jacoco -P dev

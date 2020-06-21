@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
 import sactio.reminderapi.dto.ActivityDto;
 import sactio.reminderapi.dto.ActivityRequestDto;
 import sactio.reminderapi.dto.ActivityResponseDto;
-import sactio.reminderapi.service.impl.ActivityServiceImpl;
+import sactio.reminderapi.service.ActivityService;
 
 @RestController
 @RequestMapping(value = "/api/activity")
 public class ActivityController {
 
-    private final ActivityServiceImpl activityServiceImpl;
+    final ActivityService activityService;
 
-    @Autowired
-    public ActivityController(final ActivityServiceImpl activityServiceImpl) {
-        this.activityServiceImpl = activityServiceImpl;
+
+    public ActivityController(final ActivityService activityService) {
+        this.activityService = activityService;
     }
 
     @GetMapping("/get/{activityId}")
@@ -33,7 +33,7 @@ public class ActivityController {
         ActivityResponseDto<ActivityDto> activityResponseDto = new ActivityResponseDto<>();
         activityResponseDto.setResponseCode(200);
         activityResponseDto.setMessage("Success");
-        activityResponseDto.setData(activityServiceImpl.getActivityById(activityId));
+        activityResponseDto.setData(activityService.getActivityById(activityId));
         return activityResponseDto;
     }
 
@@ -44,7 +44,7 @@ public class ActivityController {
         ActivityResponseDto<ActivityDto> activityResponseDto = new ActivityResponseDto<>();
         activityResponseDto.setResponseCode(200);
         activityResponseDto.setMessage("Success");
-        activityResponseDto.setData(activityServiceImpl.getAllActivities());
+        activityResponseDto.setData(activityService.getAllActivities());
         return activityResponseDto;
     }
 
@@ -52,7 +52,7 @@ public class ActivityController {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public ActivityResponseDto<ActivityRequestDto> insertActivity(@RequestBody ActivityRequestDto activityRequestDto) {
-        activityServiceImpl.insertActivity(activityRequestDto);
+        activityService.insertActivity(activityRequestDto);
         ActivityResponseDto<ActivityRequestDto> activityResponseDto = new ActivityResponseDto<>();
         activityResponseDto.setResponseCode(201);
         activityResponseDto.setMessage("Success");

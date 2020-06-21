@@ -1,10 +1,18 @@
 server:
   port: 5000
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: mappings
+    jmx:
+      exposure:
+        include: health,info
+
 spring:
   datasource:
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/activity_api
+    url: jdbc:mysql://localhost:3306/activity_api?autoReconnect=true&useSSL=false
     username: root
     password: pass
   jpa:

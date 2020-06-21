@@ -27,7 +27,8 @@
         <jacoco.maven.plugin.version>0.8.2</jacoco.maven.plugin.version>
         <mockito.plugin.version>1.9.5</mockito.plugin.version>
         <maven.failsafe.plugin.version>3.0.0-M5</maven.failsafe.plugin.version>
-        <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
+        <maven.clean.plugin.version>3.1.0</maven.clean.plugin.version>
+        <mysql.connector.java.version>8.0.11</mysql.connector.java.version>
     </properties>
 
 
@@ -40,8 +41,9 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
+            <version>${mysql.connector.java.version}</version>
         </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -134,7 +136,7 @@
                                     <outputDirectory>src/main/resources</outputDirectory>
                                     <resources>
                                         <resource>
-                                            <directory>./config/dev</directory>
+                                            <directory>./app_config/dev</directory>
                                         </resource>
                                     </resources>
                                 </configuration>
@@ -151,7 +153,7 @@
                                     <outputDirectory>src/test/resources</outputDirectory>
                                     <resources>
                                         <resource>
-                                            <directory>./config/dev</directory>
+                                            <directory>./app_config/dev</directory>
                                         </resource>
                                     </resources>
                                 </configuration>
@@ -170,12 +172,15 @@
             </build>
         </profile>
         <profile>
-            <id>pro</id>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <build>
                 <plugins>
                     <plugin>
                         <artifactId>maven-clean-plugin</artifactId>
-                        <version>${maven-clean-plugin.version}</version>
+                        <version>${maven.clean.plugin.version}</version>
                         <configuration>
                             <filesets>
                                 <fileset>
@@ -201,7 +206,7 @@
                                     <outputDirectory>./src/main/resources</outputDirectory>
                                     <resources>
                                         <resource>
-                                            <directory>./config/pro</directory>
+                                            <directory>./app_config/pro</directory>
                                         </resource>
                                     </resources>
                                 </configuration>
@@ -248,10 +253,6 @@
                                 <version>${surefire-junit4.plugin.version}</version>
                             </dependency>
                         </dependencies>
-                        <configuration>
-                            <skipTests>true</skipTests>
-                            <forkMode>once</forkMode>
-                        </configuration>
                         <executions>
                             <execution>
                                 <id>unit-tests</id>
@@ -295,40 +296,34 @@
                             </execution>
                         </executions>
                     </plugin>
-
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>${jacoco.maven.plugin.version}</version>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/*Dto*.*</exclude>
+                                <exclude>**/*Entity*.*</exclude>
+                                <exclude>**/*Repository*.*</exclude>
+                                <exclude>**/*Application*.*</exclude>
+                            </excludes>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>prepare-agent</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.eluder.coveralls</groupId>
+                        <artifactId>coveralls-maven-plugin</artifactId>
+                        <version>${coveralls.plugin.version}</version>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
     </profiles>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco.maven.plugin.version}</version>
-                <configuration>
-                    <excludes>
-                        <exclude>**/*Dto*.*</exclude>
-                        <exclude>**/*Entity*.*</exclude>
-                        <exclude>**/*Repository*.*</exclude>
-                        <exclude>**/*Application*.*</exclude>
-                    </excludes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>prepare-agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.eluder.coveralls</groupId>
-                <artifactId>coveralls-maven-plugin</artifactId>
-                <version>${coveralls.plugin.version}</version>
-            </plugin>
-        </plugins>
-    </build>
 </project>

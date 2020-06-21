@@ -1,5 +1,6 @@
 package sactio.reminderapi.logic.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import sactio.reminderapi.dto.ActivityDto;
 import sactio.reminderapi.dto.ActivityRequestDto;
@@ -10,10 +11,9 @@ import sactio.reminderapi.repository.ActivityRepository;
 import java.util.List;
 
 @Component
-
 public class ActivityLogicImpl implements ActivityLogic {
 
-    final ActivityRepository activityRepository;
+    private final ActivityRepository activityRepository;
 
     public ActivityLogicImpl(final ActivityRepository activityRepository) {
         this.activityRepository = activityRepository;

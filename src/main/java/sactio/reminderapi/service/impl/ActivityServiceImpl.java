@@ -13,7 +13,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     private final ActivityLogic activityLogic;
 
-    @Autowired
+
     public ActivityServiceImpl(ActivityLogic activityLogic) {
         this.activityLogic = activityLogic;
     }
