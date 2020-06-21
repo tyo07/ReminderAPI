@@ -7,7 +7,7 @@ jobs:
   include:
   - stage: maven phase UT IT package
     script:
-    - mvn clean verify package
+    - mvn clean install -Ppro verify package
   - stage: build docker image
     script:
     - set DOCKER_USERNAME sactio1811
