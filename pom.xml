@@ -226,27 +226,6 @@
                         </executions>
                     </plugin>
                     <plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>${jacoco.maven.plugin.version}</version>
-                        <configuration>
-                            <excludes>
-                                <exclude>**/*Dto*.*</exclude>
-                                <exclude>**/*Entity*.*</exclude>
-                                <exclude>**/*Repository*.*</exclude>
-                                <exclude>**/*Application*.*</exclude>
-                            </excludes>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>prepare-agent</id>
-                                <goals>
-                                    <goal>prepare-agent</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
                         <groupId>org.springframework.boot</groupId>
                         <artifactId>spring-boot-maven-plugin</artifactId>
                     </plugin>
@@ -316,14 +295,40 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <plugin>
-                        <groupId>org.eluder.coveralls</groupId>
-                        <artifactId>coveralls-maven-plugin</artifactId>
-                        <version>${coveralls.plugin.version}</version>
-                    </plugin>
+
                 </plugins>
             </build>
         </profile>
     </profiles>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.maven.plugin.version}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/*Dto*.*</exclude>
+                        <exclude>**/*Entity*.*</exclude>
+                        <exclude>**/*Repository*.*</exclude>
+                        <exclude>**/*Application*.*</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <version>${coveralls.plugin.version}</version>
+            </plugin>
+        </plugins>
+    </build>
 </project>
