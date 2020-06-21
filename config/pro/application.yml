@@ -1,3 +1,6 @@
+server:
+  port: 5050
+
 spring:
   datasource:
     driverClassName: com.mysql.jdbc.Driver
