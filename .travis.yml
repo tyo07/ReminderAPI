@@ -7,7 +7,7 @@ jobs:
   include:
   - stage: maven phase UT IT package
     script:
-    - mvn clean package -P pro spring-boot:repackage
+    - mvn clean verify package -P pro
   - stage: build docker image
     script:
     - set DOCKER_USERNAME sactio1811
@@ -38,4 +38,4 @@ env:
 
 
 after_success:
-  - mvn clean verify jacoco:report coveralls:jacoco
+  - mvn clean verify jacoco:report coveralls:jacoco -P dev
