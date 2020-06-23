@@ -8,7 +8,7 @@ import org.testcontainers.containers.MySQLContainer;
 
 public class MySQLBaseContainer extends MySQLContainer<MySQLBaseContainer> {
 
-    private static final String IMAGE_VERSION = "mysql:5.7.22";
+    private static final String IMAGE_VERSION = "mysql:8.0.11";
     private static MySQLBaseContainer container;
 
     private MySQLBaseContainer() {

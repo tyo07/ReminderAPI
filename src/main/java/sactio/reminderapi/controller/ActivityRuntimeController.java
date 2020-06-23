@@ -2,7 +2,6 @@ package sactio.reminderapi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,17 +14,16 @@ import sactio.reminderapi.constant.ActivityConstants;
 import sactio.reminderapi.dto.ActivityResponseDto;
 import sactio.reminderapi.dto.ActivityRuntimeDto;
 import sactio.reminderapi.dto.ActivityRuntimeRequestDto;
-import sactio.reminderapi.service.impl.ActivityRuntimeServiceImpl;
+import sactio.reminderapi.service.ActivityRuntimeService;
 
 @RestController
-@RequestMapping(value="/api/activityruntime", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value="/api/activityruntime")
 public class ActivityRuntimeController {
 
-    private final ActivityRuntimeServiceImpl activityRuntimeServiceImpl;
+    private final ActivityRuntimeService activityRuntimeService;
 
-    @Autowired
-    public ActivityRuntimeController(final ActivityRuntimeServiceImpl activityRuntimeServiceImpl) {
-        this.activityRuntimeServiceImpl = activityRuntimeServiceImpl;
+    public ActivityRuntimeController(final ActivityRuntimeService activityRuntimeService) {
+        this.activityRuntimeService = activityRuntimeService;
     }
 
 
@@ -33,7 +31,7 @@ public class ActivityRuntimeController {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public ActivityResponseDto<ActivityRuntimeRequestDto> insertActivityRuntime(@RequestBody ActivityRuntimeRequestDto activityRuntimeRequestDto) {
-        activityRuntimeServiceImpl.insertActivityRuntime(activityRuntimeRequestDto);
+        activityRuntimeService.insertActivityRuntime(activityRuntimeRequestDto);
         ActivityResponseDto<ActivityRuntimeRequestDto> activityResponseDto = new ActivityResponseDto<>();
         activityResponseDto.setResponseCode(201);
         activityResponseDto.setMessage(ActivityConstants.SUCCESS);
@@ -48,7 +46,7 @@ public class ActivityRuntimeController {
         ActivityResponseDto<ActivityRuntimeDto> activityResponseDto = new ActivityResponseDto<>();
         activityResponseDto.setResponseCode(200);
         activityResponseDto.setMessage(ActivityConstants.SUCCESS);
-        activityResponseDto.setData(activityRuntimeServiceImpl.getActivityRuntime(activityId));
+        activityResponseDto.setData(activityRuntimeService.getActivityRuntime(activityId));
         return activityResponseDto;
     }
 
@@ -59,7 +57,7 @@ public class ActivityRuntimeController {
         ActivityResponseDto<ActivityRuntimeDto> activityResponseDto = new ActivityResponseDto<>();
         activityResponseDto.setResponseCode(200);
         activityResponseDto.setMessage(ActivityConstants.SUCCESS);
-        activityResponseDto.setData(activityRuntimeServiceImpl.getAllActivityRuntime());
+        activityResponseDto.setData(activityRuntimeService.getAllActivityRuntime());
         return activityResponseDto;
     }
 

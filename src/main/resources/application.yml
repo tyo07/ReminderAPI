@@ -1,9 +1,20 @@
+server:
+  port: 5000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: mappings
+    jmx:
+      exposure:
+        include: health,info
+
 spring:
   datasource:
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/activity_api
-    username: root
-    password: pass
+    url: jdbc:mysql://${MYSQL_HOST:reminder-api-mysql.cw797s1wdpve.ap-northeast-1.rds.amazonaws.com}:${MYSQL_PORT:3306}/${MYSQL_DB:activity_api}?autoReconnect=true&useSSL=false
+    username: ${MYSQL_USERNAME:admin}
+    password: ${MYSQL_PASSWORD:admin123}
   jpa:
     hibernate.ddl-auto: update
     generate-ddl: true

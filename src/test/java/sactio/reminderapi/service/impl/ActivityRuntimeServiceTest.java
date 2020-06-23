@@ -8,11 +8,11 @@ import org.mockito.MockitoAnnotations;
 import sactio.reminderapi.logic.ActivityRuntimeLogic;
 import sactio.reminderapi.service.impl.ActivityRuntimeServiceImpl;
 
-public class ActivityRuntimeServiceImplTest {
+public class ActivityRuntimeServiceTest {
     @Mock
     ActivityRuntimeLogic activityRuntimeLogic;
     @InjectMocks
-    ActivityRuntimeServiceImpl activityRuntimeServiceImpl;
+    ActivityRuntimeServiceImpl activityRuntimeService;
 
     @Before
     public void setUp() {

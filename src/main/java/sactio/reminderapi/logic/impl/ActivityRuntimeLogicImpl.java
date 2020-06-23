@@ -1,7 +1,6 @@
 package sactio.reminderapi.logic.impl;
 
 import org.springframework.stereotype.Component;
-import sactio.reminderapi.dto.ActivityDto;
 import sactio.reminderapi.dto.ActivityRuntimeDto;
 import sactio.reminderapi.dto.ActivityRuntimeRequestDto;
 import sactio.reminderapi.entity.ActivityRuntimeEntity;
