@@ -3,7 +3,7 @@ server:
 
 springdoc:
   swagger-ui:
-    path: /swagger-ui-custom.html
+    path: /api/swagger-ui.html
 
 management:
   endpoints:
