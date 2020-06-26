@@ -112,6 +112,12 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
             <version>2.3.1.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>io.gatling.highcharts</groupId>
+            <artifactId>gatling-charts-highcharts</artifactId>
+            <scope>test</scope>
+            <version>3.0.2</version>
+        </dependency>
     </dependencies>
 
     <profiles>
@@ -167,6 +173,38 @@
                         <configuration>
                             <skipITs>true</skipITs>
                         </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>gatling</id>
+            <properties>
+                <testSourceDirectory>src/test/scala/reminderapi</testSourceDirectory>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.gatling</groupId>
+                        <artifactId>gatling-maven-plugin</artifactId>
+                        <version>3.0.1</version>
+                        <configuration>
+                            <simulationClass>${className}</simulationClass>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>net.alchim31.maven</groupId>
+                        <artifactId>scala-maven-plugin</artifactId>
+                        <version>3.4.4</version>
+                        <executions>
+                            <execution>
+                                <id>scala-test-compile</id>
+                                <phase>process-test-resources</phase>
+                                <goals>
+                                    <goal>testCompile</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
