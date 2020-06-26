@@ -12,6 +12,7 @@ jobs:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker-compose build
         - docker push $DOCKER_USERNAME/reminder-api
+        - mvn clean verify package jacoco:report coveralls:jacoco
       provider: elasticbeanstalk
       access_key_id:
         secure: 0W5JgKTXoxkpB8q5YE12GBe+TZt4qsSu8XRBHsx1jYximA3cJiakclSL4FEDdXm15A0RM3W1WaS5SLC4Ym3MgCd9Lr18dMmZcSP4Xn7rncx54pYmgnf+9aTw24swR73tgMlzUsSL08sb6FZSIU7c6AiVEwaAkahKQX5N5I2eVxAhnqOPTFuNgrwEGDaJAiZVKg3Xw8cdp25mepG0GTIQNOTDgiKlBOmp+hscJOipGopbJwG7BiUubFNLYoq8uz3e2RAYJEvNIOFrbQrTeEYDr+Byt9/EWN31ChZ1YKINsj7oeD4vK3R+5c7nf//jyEqHB4Ken7VCiJG8YW+NezZquMb1sGZ6XvyBCX/P5iI37t/EDJcHxpCRCzfCOwFzyMFr+QAZLy3dIgTOLA0NgJBYpeddv2mEZIu/ZuKJzZWbp87o3/3UGlPQq9um/APSzOdiHePk26W26Ontj4V/m25SYq+bOABcz6FZxHeGlHCkiYO6KALn8bJEOTl2yqGhisuHlnRQ2VMmeUOtZi0qqzGsZMIJ3lK4DPPuZkhAVA9euhwGMKYz4c3KjqI7Xi6gLQaJ2rW93rlefD6CN5Sq1Xikcg8ly4pikYsTNkCDPUvF2uUffPZnnRsoe1gSBQva/OLWY3g/CqmxK0a9iQ8CRCL5LUCy1NMLz70lYIFSuI/aAzU=
@@ -21,12 +22,10 @@ jobs:
       app: ReminderAPI-DEV
       env: ReminderapiDev-env
       bucket_name: elasticbeanstalk-ap-northeast-1-065198887127
+      zip_file: target/reminder-api-0.0.1.jar
       on:
         repo: tyo07/ReminderAPI
       skip_cleanup: 'true'
 env:
   global:
     secure: k00EXqHkKQCxLVnIXv53BtWKQCLh7IfzhvDzuG7jWBB5cnfgs5wQZ+RjBfcnBMiS0p6Fd8Y1X18aDuJbGARPiIhxC93B0LMFvB4gjuXn5fafrBrk4df/4GAQhyIxhIDS5w+ErOOXqWshFghhUiH1BgaC5q1agAyDlJZTwKYal/yCdMSE9QoMTAUv4cgQUVFY1h+fpX+cLSebv13VYODlW79MvFoyxljfMPOVqaXOSQmmX9JkdfSExuaEaWPNu38+nMCqSwVlvCY34/FNIiQOeqQzN1KGtmGlBCxoFlORw8OAwIBXlT4Ox2P1J5Ry1/F+YZyUJeGXksqeIzHnMmk4HeQ1aHCUpGr6E1q+YUbuF8M5RpxxMEMdp66WJR306X9zIG4YurWeessn1kKJBVyqv97MjNlHExoutkCpfTH3znKK5Vitypho6ozmbtjjfTeyrtBLIsKuP64TD+PanJ84KcK2Q6mLGpqbTTJ2entDITBu9vZBVMjpSP3zXw8ExRIq0WYQxHsyBGsH2aVtBHbOhoHFGR5t9NJ79GsY6uOkbxSX6R8jiHltGS4T7Y4079G12CcXxNovLhwtQRSNDr7t3zgXTCv0wAbTNlMII4zvgFjhVOP7Sh405ZfHrcWXuuAOuX0VouGA2KuMcD+iis+EBkJK1X2e8Uwj7Nw0VPA01h4=
-
-after_success:
-  - mvn clean verify jacoco:report coveralls:jacoco
