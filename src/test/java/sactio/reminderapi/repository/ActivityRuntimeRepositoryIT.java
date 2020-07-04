@@ -1,5 +1,6 @@
 package sactio.reminderapi.repository;
 
+import org.junit.After;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +29,11 @@ public class ActivityRuntimeRepositoryIT {
   public static MySQLContainer mysql = MySQLBaseContainer.getInstance();
   @Autowired
   private ActivityRuntimeRepository activityRuntimeRepository;
+
+  @After
+  public void resetDb() {
+    activityRuntimeRepository.deleteAll();
+  }
 
   @Test
   public void shouldFindActivityRuntime() {
