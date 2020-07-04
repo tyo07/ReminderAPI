@@ -1,5 +1,6 @@
 package sactio.reminderapi.repository;
 
+import org.junit.After;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,6 +30,11 @@ public class ActivityRepositoryIT {
   @Autowired
   private ActivityRepository activityRepository;
 
+  @After
+  public void resetDb() {
+    activityRepository.deleteAll();
+  }
+
   @Test
   public void shouldFindActivity() {
     //Given && When
@@ -38,7 +44,6 @@ public class ActivityRepositoryIT {
     activityRepository.save(activityEntity);
     List<ActivityEntity> found = activityRepository.findByActivityId(123);
     assertThat(found.size(), equalTo(1));
-
   }
 
 }

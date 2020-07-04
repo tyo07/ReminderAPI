@@ -2,7 +2,6 @@ package sactio.reminderapi.controller;
 
 import org.json.JSONObject;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +14,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.containers.MySQLContainer;
@@ -60,13 +60,6 @@ public class ActivityControllerIT {
     private String drinkCoffeeActivity = "drinkCoffee";
     private String eatTakoyakiActivity = "eatTakoyaki";
 
-
-    @Before
-    public void setUp() {
-        createTestActivity(1, drinkCoffeeActivity);
-        createTestActivity(2, eatTakoyakiActivity);
-    }
-
     @After
     public void resetDb() {
         activityRepository.deleteAll();
@@ -74,6 +67,7 @@ public class ActivityControllerIT {
 
 
     @Test
+    @Sql("/sql/IT/activity_data.sql")
     public void testGetAllActivities_return200_and_verifyResult() {
         ActivityResponseDto<ActivityDto> activityResponseDto = this.restTemplate.exchange("http://localhost:" + port + "/api/activity/get", HttpMethod.GET, null, new ParameterizedTypeReference<ActivityResponseDto<ActivityDto>>() {
         }).getBody();
@@ -84,6 +78,7 @@ public class ActivityControllerIT {
     }
 
     @Test
+    @Sql("/sql/IT/activity_data.sql")
     public void givenActivity_shouldReturn_200_and_containActivity() throws Exception {
 
         mvc.perform(get("/api/activity/get").contentType(MediaType.APPLICATION_JSON))
@@ -96,6 +91,7 @@ public class ActivityControllerIT {
     }
 
     @Test
+    @Sql("/sql/IT/activity_data.sql")
     public void givenActivity_shouldReturn_200_and_jsonShouldMatch() throws Exception {
 
         mvc.perform(get("/api/activity/get").contentType(MediaType.APPLICATION_JSON))
@@ -107,6 +103,7 @@ public class ActivityControllerIT {
     }
 
     @Test
+    @Sql("/sql/IT/activity_data.sql")
     public void givenActivity_whenGetActivity_shouldReturn() throws Exception {
 
         mvc.perform(get("/api/activity/get/1").contentType(MediaType.APPLICATION_JSON))
@@ -125,6 +122,7 @@ public class ActivityControllerIT {
     }
 
     @Test
+    @Sql("/sql/IT/activity_data.sql")
     public void givenActivity_whenGetActivity_notExist_shouldReturnEmpty() throws Exception {
 
         mvc.perform(get("/api/activity/get/3").contentType(MediaType.APPLICATION_JSON))
@@ -136,7 +134,8 @@ public class ActivityControllerIT {
     }
 
     @Test
-    public void insertActivity_shouldReturnSuccess() throws Exception {
+    @Sql("/sql/IT/activity_data.sql")
+    public void insertActivity_shouldUpdateIfRecordExist_andReturnSuccess() throws Exception {
         String jsonString = new JSONObject()
                 .put("activityId", 1)
                 .put("activityName", "new activity")
@@ -148,14 +147,14 @@ public class ActivityControllerIT {
                 .content(jsonString))
                 .andExpect(status().isCreated())
                 .andExpect(content().string(containsString(jsonString)));
-    }
+
+        mvc.perform(get("/api/activity/get").contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(content().json("{'responseCode':200,'message':'Success','data':{'activityEntityList':[{'activityId':1,'activityName':'new activity'},{'activityId':2,'activityName':'eatTakoyaki'}]}})"));
 
 
-    private void createTestActivity(Integer activityId, String activityName) {
-        ActivityEntity activityEntity = new ActivityEntity();
-        activityEntity.setActivityId(activityId);
-        activityEntity.setActivityName(activityName);
-        activityRepository.saveAndFlush(activityEntity);
     }
 }
 
