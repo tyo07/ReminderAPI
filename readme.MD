@@ -28,3 +28,11 @@ docker run --name mysql-reminder-api -p 3306:3306 -e MYSQL_DATABASE=activity_api
 if you stopped the container and want to start again
 docker start mysql-reminder-api
 ```
+
+# Performance Test
+
+```
+change the path of the http target
+mvn -Pgatling gatling:test
+
+```
