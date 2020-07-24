@@ -36,3 +36,9 @@ change the path of the http target
 mvn -Pgatling gatling:test
 
 ```
+
+# How to start
+```
+mvn clean install -Pdev
+start springboot (assuming you have your mysql ready)
+```

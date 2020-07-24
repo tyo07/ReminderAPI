@@ -1,6 +1,5 @@
 package sactio.reminderapi.logic.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import sactio.reminderapi.dto.ActivityDto;
 import sactio.reminderapi.dto.ActivityRequestDto;
