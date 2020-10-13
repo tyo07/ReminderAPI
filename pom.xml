@@ -18,7 +18,7 @@
         <java.version>1.8</java.version>
         <jacoco.reportPath>${project.build.directory}/jacoco.exec</jacoco.reportPath>
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <testcontainer.version>1.14.3</testcontainer.version>
         <testcontainer.mysql.version>1.14.3</testcontainer.mysql.version>
         <maven.surefire.plugin.version>3.0.0-M4</maven.surefire.plugin.version>
